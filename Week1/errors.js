@@ -16,3 +16,13 @@ console.log(x);
 // SyntaxError: Invalid or unexpected token
 const y = 100;
 console.log(y);
+
+const num = 100;
+const unknownAnswer = typeof num !== 'number' ? 'this will be the value' : 'actually this is the value';
+console.log(unknownAnswer);
+
+const subtract = (x = 5, y = 5) => {
+    return x - y;
+};
+
+console.log(subtract(7));
