@@ -1,0 +1,22 @@
+{
+  "name": "hw2",
+  "version": "1.0.0",
+  "description": "json file for homework2",
+  "main": "request-template.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrewMarinHeusser/CS4220Assignments.git#dev1"
+  },
+  "author": "Andrew Heusser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrewMarinHeusser/CS4220Assignments/issues"
+  },
+  "homepage": "https://github.com/AndrewMarinHeusser/CS4220Assignments/tree/dev1#readme",
+  "dependencies": {
+    "superagent": "^8.0.9"
+  }
+}
