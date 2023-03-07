@@ -1,0 +1,14 @@
+{
+  "name": "superagent-example",
+  "version": "1.0.0",
+  "description": "an example using superagent for CS4220",
+  "main": "superagent-request.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cydney Auman",
+  "license": "ISC",
+  "dependencies": {
+    "superagent": "^8.0.9"
+  }
+}
