@@ -56,8 +56,29 @@ const requestPromise = (url, callee) => {
     });
 };
 
+//requestPromise('http://www.spotify.com/us/', 'promise').then((info) => {console.log(info);}).catch((error)=>{console.log(error);})
+
 // // # 3 - Invoke the requestPromise() using then/catch for each websites object above
+
+requestPromise(websites.dummyjson.url, 'promise').then((response) => console.log(response)).catch((error) => console.error(error));
+requestPromise(websites.spotify.url, 'promise').then((response) => console.log(response)).catch((error) => console.error(error));
+requestPromise(websites.nasa.url, 'promise').then((response) => console.log(response)).catch((error) => console.error(error));
+requestPromise(websites.unknown.url, 'promise').then((response) => console.log(response)).catch((error) => console.error(error));
 
 // // # 4 - Write the requestWrapper() function which interacts with the requestPromise() function
 
+ const requestWrapper = async (url, callee) => {
+    try {
+        const response = await requestPromise(url, callee);
+        console.log(response);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 // // # 5 - Invoke the requestWrapper() for each websites object above
+requestWrapper(websites.dummyjson.url, 'async/await');
+requestWrapper(websites.spotify.url, 'async/await');
+requestWrapper(websites.nasa.url, 'async/await');
+requestWrapper(websites.unknown.url, 'async/await');
+
