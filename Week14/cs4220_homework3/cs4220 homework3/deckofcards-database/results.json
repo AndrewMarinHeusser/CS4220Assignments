@@ -1,0 +1,54 @@
+[
+  {
+    "deckId": "5ybvft34yu8k",
+    "hand": [
+      {
+        "formatted": "9 of HEARTS",
+        "code": "9H"
+      },
+      {
+        "formatted": "5 of DIAMONDS",
+        "code": "5D"
+      },
+      {
+        "formatted": "6 of CLUBS",
+        "code": "6C"
+      },
+      {
+        "formatted": "3 of HEARTS",
+        "code": "3H"
+      },
+      {
+        "formatted": "3 of SPADES",
+        "code": "3S"
+      }
+    ],
+    "metadata": {
+      "agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36",
+      "gameStart": "2023-04-24T10:29:28.065Z",
+      "gameEnd": "2023-04-24T10:30:48.224Z"
+    },
+    "finalHand": [
+      {
+        "formatted": "QUEEN of DIAMONDS",
+        "code": "QD"
+      },
+      {
+        "formatted": "6 of HEARTS",
+        "code": "6H"
+      },
+      {
+        "formatted": "JACK of CLUBS",
+        "code": "JC"
+      },
+      {
+        "formatted": "7 of DIAMONDS",
+        "code": "7D"
+      },
+      {
+        "formatted": "QUEEN of SPADES",
+        "code": "QS"
+      }
+    ]
+  }
+]

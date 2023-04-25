@@ -2,6 +2,7 @@ const yargs = require('yargs/yargs');
 
 const app = require('./app.js');
 
+// eslint-disable-next-line no-undef
 yargs(process.argv.slice(2))
     // $0 expands the file name
     // <> indicate that the command is manadatory
