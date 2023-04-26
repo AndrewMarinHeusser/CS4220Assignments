@@ -23,19 +23,27 @@ const _formatCards = (cards) => {
 router.use((req, res, next) => {
     console.log('Running Router Level Middleware');
 
-    const { headers, query, url } = req;
+    const { headers, query, originalUrl } = req;
+
+    const urlArray = originalUrl.split("/");
 
     // add a metadata key on the query object
     // and store details about the user agent and game start
-    if (url == '/'){
+    if (urlArray[1] == 'poker' && typeof(urlArray[2]) != "string"){
         query.metadata = {
             agent: headers['user-agent'],
             gameStart: new Date()
         };
-    } else {
+        console.log("url arr[1] (should be poker):", urlArray[1]);
+        console.log("url arr[2] (should be blank):", urlArray[2]);
+        console.log("first success");
+    } else if (urlArray[1] == 'poker' && typeof(urlArray[2]) == "string"){
         query.metadata = {
             gameEnd: new Date()
         };
+        console.log("url arr[1] (should be poker):", urlArray[1]);
+        console.log("url arr[2]:(should be rest this time):", urlArray[2]);
+        console.log("second success");
     }
     // HOMEWORK #1
     // console.log(req)
@@ -49,7 +57,7 @@ router.use((req, res, next) => {
  * @apiQuery {Number} cardCount     number of cards to draw
  * @apiExample                      localhost:8888/poker
  */
-router.get('/', async (req, res) => {
+router.get('/poker', async (req, res) => {
     try {
         const { query } = req;
         const { count = 1, cardCount = 5, metadata } = query;
@@ -100,11 +108,11 @@ router.get('/:deckId', async (req, res) => {
 
         res.json(results);
 
-        // database.save({ ...results, metadata })
         // HOMEWORK #3
         const finalHand = results.hand;
         database.update(deckId, { finalHand, metadata });
-    } catch (error) {
+        }
+        catch (error) {
         res.status(500).json(error.toString());
     }
 });
