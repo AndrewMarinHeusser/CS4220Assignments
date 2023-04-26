@@ -25,28 +25,23 @@ router.use((req, res, next) => {
 
     const { headers, query, originalUrl } = req;
 
-    const urlArray = originalUrl.split("/");
+    // HOMEWORK #1
+    //gameStateArray is the URL split to be able to detect if a deck id has been added or not
+    const gameStateArray = originalUrl.split("/");
 
     // add a metadata key on the query object
     // and store details about the user agent and game start
-    if (urlArray[1] == 'poker' && typeof(urlArray[2]) != "string"){
+    if (gameStateArray[1] == 'poker' && typeof(gameStateArray[2]) != "string"){
         query.metadata = {
             agent: headers['user-agent'],
             gameStart: new Date()
         };
-        console.log("url arr[1] (should be poker):", urlArray[1]);
-        console.log("url arr[2] (should be blank):", urlArray[2]);
-        console.log("first success");
-    } else if (urlArray[1] == 'poker' && typeof(urlArray[2]) == "string"){
+    } else if (gameStateArray[1] == 'poker' && typeof(gameStateArray[2]) == "string"){
         query.metadata = {
             gameEnd: new Date()
         };
-        console.log("url arr[1] (should be poker):", urlArray[1]);
-        console.log("url arr[2]:(should be rest this time):", urlArray[2]);
-        console.log("second success");
     }
-    // HOMEWORK #1
-    // console.log(req)
+    
 
     next();
 });
@@ -57,7 +52,7 @@ router.use((req, res, next) => {
  * @apiQuery {Number} cardCount     number of cards to draw
  * @apiExample                      localhost:8888/poker
  */
-router.get('/poker', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const { query } = req;
         const { count = 1, cardCount = 5, metadata } = query;
@@ -72,7 +67,9 @@ router.get('/poker', async (req, res) => {
         res.json(results);
 
         database.save({ ...results, metadata });
-    } catch (error) {
+    } 
+    
+    catch (error) {
         res.status(500).json(error.toString());
     }
 });
@@ -85,36 +82,37 @@ router.get('/poker', async (req, res) => {
  */
 router.get('/:deckId', async (req, res) => {
     try {
-        const { params, query } = req;
+            const { params, query } = req;
 
-        const { deckId } = params;
-        const { cards, metadata } = query;
+            const { deckId } = params;
+            const { cards, metadata } = query;
 
-        const selected = cards.split(',');
-        const original = database.find(deckId);
+            const selected = cards.split(',');
+            const original = database.find(deckId);
 
-        const filtered = original.hand.filter((card) => {
-            return !selected.includes(card.code);
-        });
+            const filtered = original.hand.filter((card) => {
+                return !selected.includes(card.code);
+            });
 
-        const reDraw = await deckofcards.drawCards(deckId, selected.length);
+            const reDraw = await deckofcards.drawCards(deckId, selected.length);
 
-        const formatted = _formatCards(reDraw.cards);
+            const formatted = _formatCards(reDraw.cards);
 
-        const results = {
-            deckId,
-            hand: [...filtered, ...formatted]
-        };
+            const results = {
+                deckId,
+                hand: [...filtered, ...formatted]
+            };
 
-        res.json(results);
+            res.json(results);
 
-        // HOMEWORK #3
-        const finalHand = results.hand;
-        database.update(deckId, { finalHand, metadata });
+            // HOMEWORK #3
+            const finalHand = results.hand;
+            database.update(deckId, { finalHand, metadata });
         }
-        catch (error) {
+
+    catch (error) {
         res.status(500).json(error.toString());
-    }
+        }
 });
 
 module.exports = router;

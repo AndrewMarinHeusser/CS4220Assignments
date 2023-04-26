@@ -14,7 +14,9 @@ const save = async (data) => {
         results.push(data);
 
         await fs.promises.writeFile(FULL_PATH, JSON.stringify(results));
-    } catch (error) {
+    } 
+    
+    catch (error) {
         console.error(error);
     }
 };
@@ -37,7 +39,9 @@ const find = (id) => {
         } else {
             return results;
         }
-    } catch (error) {
+    }
+
+    catch (error) {
         console.error(error);
     }
 };
@@ -48,16 +52,24 @@ const update = async (id, data) => {
         const { finalHand, metadata } = data;
 
         if (id) {
-            const deck = results.find((result) => {
+            const cards = results.find((result) => {
                 return result.deckId === id;
             });
-            deck.finalHand = finalHand;
-            deck.metadata.gameEnd = metadata.gameEnd;
-        } else {
+
+            cards.finalHand = finalHand;
+            cards.metadata.gameEnd = metadata.gameEnd;
+            fs.writeFile(FULL_PATH, JSON.stringify(cards), function(err){
+                if (err) throw err;
+            });
+        } 
+
+        else {
             return results;
         }
-        await fs.promises.writeFile(FULL_PATH, JSON.stringify(results,null, 2));
-    } catch (error) {
+        
+    }
+
+    catch (error) {
         console.error(error);
     }
 };
